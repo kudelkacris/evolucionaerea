@@ -107,17 +107,29 @@
                 radial-gradient(ellipse at 10% 90%, rgba(255,107,157,.12), transparent 55%);
     z-index: 1;
   }
-  .hero__bg { position: absolute; right: -4%; top: 0; bottom: 0; width: 62%; z-index: 0; }
-  .hero__bg img {
+  .hero__bg { position: absolute; right: -4%; top: 0; bottom: 0; width: 62%; z-index: 0; overflow: hidden; }
+  .hero__carousel-track { display: flex; height: 100%; transition: transform .9s cubic-bezier(.77,0,.175,1); }
+  .hero__carousel-slide { min-width: 100%; height: 100%; flex-shrink: 0; }
+  .hero__carousel-slide img {
     width: 100%; height: 100%; object-fit: cover; object-position: center 30%;
-    filter: grayscale(100%) contrast(1.05) brightness(.85);
+    filter: grayscale(20%) contrast(1.05) brightness(.85);
     mask-image: linear-gradient(to right, transparent 0%, #000 30%, #000 100%);
     -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 30%, #000 100%);
   }
   .hero__bg::after {
-    content: ""; position: absolute; inset: 0;
+    content: ""; position: absolute; inset: 0; z-index: 1;
     background: linear-gradient(105deg, rgba(26,26,46,1) 0%, rgba(26,26,46,.55) 38%, rgba(26,26,46,.05) 60%, rgba(46,196,182,.18) 100%);
   }
+  .hero__carousel-dots {
+    position: absolute; bottom: 90px; right: 32px; z-index: 3;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .hero__carousel-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(250,248,243,.35); border: none; cursor: pointer;
+    transition: background .3s, transform .3s;
+  }
+  .hero__carousel-dot.active { background: var(--teal); transform: scale(1.4); }
   .hero__content { position: relative; z-index: 2; max-width: 680px; }
   .eyebrow {
     display: inline-flex; align-items: center; gap: 12px;
@@ -334,7 +346,10 @@
   }
   .gallery__cell:hover img { transform: scale(1.06); filter: grayscale(0%) contrast(1.05); }
   .gallery__cell:hover::after { opacity: 1; }
-  .gallery__cell:nth-child(3) img { filter: grayscale(0%) contrast(1.05) brightness(.92); }
+  .gallery__cell:nth-child(3) img,
+  .gallery__cell:nth-child(4) img { filter: grayscale(0%) contrast(1.05) brightness(.92); }
+  .gallery__cell:nth-child(3):hover img,
+  .gallery__cell:nth-child(4):hover img { transform: scale(1.06); filter: grayscale(0%) contrast(1.05); }
   .gallery__cell-label {
     position: absolute; left: 24px; bottom: 22px; z-index: 2;
     color: var(--cream); font-family: var(--serif); font-style: italic; font-size: 17px;
@@ -522,7 +537,18 @@
 
 <header class="hero" id="top">
   <div class="hero__bg">
-    <img src="img/muestra-1.png" alt="Acrobacia aérea en tela" />
+    <div class="hero__carousel-track" id="heroTrack">
+      <div class="hero__carousel-slide"><img src="img/muestra-1.png" alt="Tela aérea en escena" /></div>
+      <div class="hero__carousel-slide"><img src="img/muestra-4.png" alt="Splits en tela" /></div>
+      <div class="hero__carousel-slide"><img src="img/adulto-1.png" alt="Aro aéreo" /></div>
+      <div class="hero__carousel-slide"><img src="img/muestra-3.png" alt="Tela aérea" /></div>
+    </div>
+    <div class="hero__carousel-dots" id="heroDots">
+      <button class="hero__carousel-dot active"></button>
+      <button class="hero__carousel-dot"></button>
+      <button class="hero__carousel-dot"></button>
+      <button class="hero__carousel-dot"></button>
+    </div>
   </div>
   <div class="container hero__content">
     <div class="eyebrow reveal">Mar del Plata · Argentina</div>
@@ -674,8 +700,8 @@
     </div>
     <div class="gallery__grid">
       <div class="gallery__cell reveal">
-        <img src="img/muestra-1.png" alt="Tela aérea en escena" />
-        <span class="gallery__cell-label">Tela aérea — muestra anual</span>
+        <img src="img/adulto-2.png" alt="Trabajo en pareja tela" />
+        <span class="gallery__cell-label">Trabajo en pareja</span>
       </div>
       <div class="gallery__cell reveal delay-1">
         <img src="img/adulto-1.png" alt="Aro aéreo en entrenamiento" />
@@ -686,21 +712,10 @@
         <span class="gallery__cell-label">Muestra grupal</span>
       </div>
       <div class="gallery__cell reveal delay-3">
-        <img src="img/adulto-2.png" alt="Trabajo en pareja" />
-        <span class="gallery__cell-label">Trabajo en pareja</span>
-      </div>
-    </div>
-
-    <div class="gallery__grid" style="margin-top:16px; grid-template-columns:1fr 1fr; grid-template-rows:280px;">
-      <div class="gallery__cell reveal">
-        <img src="img/muestra-4.png" alt="Tela aérea splits" />
-        <span class="gallery__cell-label">Splits en tela</span>
-      </div>
-      <div class="gallery__cell reveal delay-1">
-        <div class="carousel">
-          <div class="carousel__track" id="kidsTrack">
-            <div class="carousel__slide"><img src="img/kids-1.png" alt="Coreografía infantil" /></div>
-            <div class="carousel__slide"><img src="img/kids-2.png" alt="Coreografía infantil" /></div>
+        <div class="carousel" style="height:100%;">
+          <div class="carousel__track" id="kidsTrack" style="height:100%;">
+            <div class="carousel__slide" style="height:100%;"><img src="img/kids-1.png" alt="Coreografía infantil" /></div>
+            <div class="carousel__slide" style="height:100%;"><img src="img/kids-2.png" alt="Coreografía infantil" /></div>
           </div>
           <button class="carousel__btn carousel__btn--prev" onclick="moveCarousel('kidsTrack',-1)">&#8592;</button>
           <button class="carousel__btn carousel__btn--next" onclick="moveCarousel('kidsTrack',1)">&#8594;</button>
@@ -740,34 +755,34 @@
     <div class="testimonials__grid">
       <div class="testi-card reveal">
         <div class="testi-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testi-card__text">"Mi hija lleva dos años en Evolución Aérea y la transformación es increíble. No solo en lo físico — llegó a casa más segura de sí misma, con amigas y con ganas de ir a cada clase. No lo cambio por nada."</p>
+        <p class="testi-card__text">"Que privilegio formar parte de esto."</p>
         <div class="testi-card__author">
-          <div class="testi-card__avatar">V</div>
+          <div class="testi-card__avatar">L</div>
           <div>
-            <div class="testi-card__name">Valeria M.</div>
-            <div class="testi-card__role">Mamá de alumna, 9 años</div>
+            <div class="testi-card__name">lucyramirez1102</div>
+            <div class="testi-card__role">Comentario en Instagram</div>
           </div>
         </div>
       </div>
       <div class="testi-card reveal delay-1">
         <div class="testi-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testi-card__text">"Empecé a los 35 sin ninguna experiencia y pensé que era tarde. En tres meses ya hacía cosas que nunca imaginé. El ambiente es increíble, nadie te juzga y siempre te impulsan a dar un paso más."</p>
+        <p class="testi-card__text">"Las clases que recargan energias."</p>
         <div class="testi-card__author">
-          <div class="testi-card__avatar">C</div>
+          <div class="testi-card__avatar">D</div>
           <div>
-            <div class="testi-card__name">Carolina R.</div>
-            <div class="testi-card__role">Alumna adulta — Tela y Aro</div>
+            <div class="testi-card__name">denisrepettoaerial</div>
+            <div class="testi-card__role">Comentario en Instagram</div>
           </div>
         </div>
       </div>
       <div class="testi-card reveal delay-2">
         <div class="testi-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testi-card__text">"Es el mejor lugar donde estuve. Las profes te enseñan con paciencia y siempre están atentas a que lo hagas bien. Cada clase aprendo algo nuevo y salgo con una energía que no se explica."</p>
+        <p class="testi-card__text">"Las mejores clases de mdq."</p>
         <div class="testi-card__author">
           <div class="testi-card__avatar">L</div>
           <div>
-            <div class="testi-card__name">Luciana P.</div>
-            <div class="testi-card__role">Alumna — Tela Aérea</div>
+            <div class="testi-card__name">lucyramirez1102</div>
+            <div class="testi-card__role">Comentario en Instagram</div>
           </div>
         </div>
       </div>
@@ -837,6 +852,21 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); } });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }).observe(el);
   });
+
+  // Hero carousel auto-advance
+  (function() {
+    const track = document.getElementById('heroTrack');
+    const dots = document.querySelectorAll('#heroDots .hero__carousel-dot');
+    let current = 0;
+    const total = 4;
+    function goHero(idx) {
+      current = idx;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+    dots.forEach((d, i) => d.addEventListener('click', () => goHero(i)));
+    setInterval(() => goHero((current + 1) % total), 4000);
+  })();
 
   const carouselState = {};
   function moveCarousel(id, dir) {
