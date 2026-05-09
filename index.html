@@ -334,6 +334,7 @@
   }
   .gallery__cell:hover img { transform: scale(1.06); filter: grayscale(0%) contrast(1.05); }
   .gallery__cell:hover::after { opacity: 1; }
+  .gallery__cell:nth-child(3) img { filter: grayscale(0%) contrast(1.05) brightness(.92); }
   .gallery__cell-label {
     position: absolute; left: 24px; bottom: 22px; z-index: 2;
     color: var(--cream); font-family: var(--serif); font-style: italic; font-size: 17px;
@@ -358,7 +359,7 @@
     color: var(--cream); display: flex; align-items: center;
   }
   .community__bg { position: absolute; inset: 0; z-index: 0; }
-  .community__bg img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.05) brightness(.7); }
+  .community__bg img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.05) brightness(.7); }
   .community__bg::after {
     content: ""; position: absolute; inset: 0;
     background: linear-gradient(135deg, rgba(26,26,46,.85) 0%, rgba(26,26,46,.45) 60%, rgba(46,196,182,.35) 100%);
@@ -377,6 +378,50 @@
   .stat__num { font-family: var(--serif); font-size: 44px; font-weight: 500; color: var(--teal); line-height: 1; }
   .stat__label { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250,248,243,.65); margin-top: 8px; }
   @media (max-width: 700px) { .community { height: auto; padding: 100px 0; } }
+
+  /* CAROUSEL */
+  .carousel { position: relative; overflow: hidden; border-radius: var(--radius-lg); }
+  .carousel__track { display: flex; transition: transform .6s var(--ease); }
+  .carousel__slide { min-width: 100%; height: 320px; flex-shrink: 0; }
+  .carousel__slide img { width: 100%; height: 100%; object-fit: cover; }
+  .carousel__btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(26,26,46,.55); border: none; color: var(--cream);
+    width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+    font-size: 20px; display: flex; align-items: center; justify-content: center;
+    transition: background .2s; z-index: 3;
+  }
+  .carousel__btn:hover { background: var(--teal); color: var(--navy); }
+  .carousel__btn--prev { left: 12px; }
+  .carousel__btn--next { right: 12px; }
+  .carousel__dots { display: flex; gap: 8px; justify-content: center; margin-top: 14px; }
+  .carousel__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); border: none; cursor: pointer; transition: background .2s; }
+  .carousel__dot.active { background: var(--teal); }
+
+  /* TESTIMONIOS */
+  .testimonials { background: var(--navy); padding: 100px 0; }
+  .testimonials .section-eyebrow { color: var(--teal); }
+  .testimonials .section-title { color: var(--cream); }
+  .testimonials__grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 50px;
+  }
+  .testi-card {
+    background: rgba(250,248,243,.06); border: 1px solid rgba(250,248,243,.1);
+    border-radius: var(--radius-lg); padding: 36px 32px;
+    transition: transform .3s var(--ease), border-color .3s var(--ease);
+  }
+  .testi-card:hover { transform: translateY(-4px); border-color: var(--teal); }
+  .testi-card__stars { color: var(--gold); font-size: 16px; letter-spacing: 2px; margin-bottom: 20px; }
+  .testi-card__text { color: rgba(250,248,243,.85); font-size: 16px; line-height: 1.75; font-style: italic; }
+  .testi-card__author { margin-top: 24px; display: flex; align-items: center; gap: 14px; }
+  .testi-card__avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--teal); display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 18px; color: var(--navy); font-weight: 600;
+  }
+  .testi-card__name { color: var(--cream); font-weight: 600; font-size: 14px; }
+  .testi-card__role { color: rgba(250,248,243,.45); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+  @media (max-width: 860px) { .testimonials__grid { grid-template-columns: 1fr; } }
 
   /* CTA FINAL */
   .cta-final {
@@ -633,15 +678,37 @@
         <span class="gallery__cell-label">Tela aérea — muestra anual</span>
       </div>
       <div class="gallery__cell reveal delay-1">
-        <img src="img/muestra-3.png" alt="Tela aérea en pareja" />
-        <span class="gallery__cell-label">Trabajo en pareja</span>
-      </div>
-      <div class="gallery__cell reveal delay-2">
-        <img src="img/muestra-2.png" alt="Aro aéreo" />
+        <img src="img/adulto-1.png" alt="Aro aéreo en entrenamiento" />
         <span class="gallery__cell-label">Aro aéreo</span>
       </div>
+      <div class="gallery__cell reveal delay-2">
+        <img src="img/muestra-2.png" alt="Muestra grupal" />
+        <span class="gallery__cell-label">Muestra grupal</span>
+      </div>
       <div class="gallery__cell reveal delay-3">
-        <img src="img/kids-2.png" alt="Coreografía grupo infantil" />
+        <img src="img/adulto-2.png" alt="Trabajo en pareja" />
+        <span class="gallery__cell-label">Trabajo en pareja</span>
+      </div>
+    </div>
+
+    <div class="gallery__grid" style="margin-top:16px; grid-template-columns:1fr 1fr; grid-template-rows:280px;">
+      <div class="gallery__cell reveal">
+        <img src="img/muestra-4.png" alt="Tela aérea splits" />
+        <span class="gallery__cell-label">Splits en tela</span>
+      </div>
+      <div class="gallery__cell reveal delay-1">
+        <div class="carousel">
+          <div class="carousel__track" id="kidsTrack">
+            <div class="carousel__slide"><img src="img/kids-1.png" alt="Coreografía infantil" /></div>
+            <div class="carousel__slide"><img src="img/kids-2.png" alt="Coreografía infantil" /></div>
+          </div>
+          <button class="carousel__btn carousel__btn--prev" onclick="moveCarousel('kidsTrack',-1)">&#8592;</button>
+          <button class="carousel__btn carousel__btn--next" onclick="moveCarousel('kidsTrack',1)">&#8594;</button>
+          <div class="carousel__dots">
+            <button class="carousel__dot active" onclick="goCarousel('kidsTrack',0)"></button>
+            <button class="carousel__dot" onclick="goCarousel('kidsTrack',1)"></button>
+          </div>
+        </div>
         <span class="gallery__cell-label">Coreografía infantil</span>
       </div>
     </div>
@@ -650,7 +717,7 @@
 
 <section class="community" id="comunidad">
   <div class="community__bg">
-    <img src="img/kids-grupal.png" alt="Comunidad Evolución Aérea" />
+    <img src="img/kids-grupal.png" alt="Comunidad Evolución Aérea" style="object-position: center top;" />
   </div>
   <div class="container community__content reveal">
     <div class="section-eyebrow" style="color:var(--teal)">Comunidad</div>
@@ -660,6 +727,50 @@
       <div><div class="stat__num">+120</div><div class="stat__label">Estudiantes activas</div></div>
       <div><div class="stat__num">3</div><div class="stat__label">Disciplinas aéreas</div></div>
       <div><div class="stat__num">6</div><div class="stat__label">Años formando</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">Testimonios</div>
+      <h2 class="section-title">Lo que dicen <em>nuestras alumnas</em>.</h2>
+    </div>
+    <div class="testimonials__grid">
+      <div class="testi-card reveal">
+        <div class="testi-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-card__text">"Mi hija lleva dos años en Evolución Aérea y la transformación es increíble. No solo en lo físico — llegó a casa más segura de sí misma, con amigas y con ganas de ir a cada clase. No lo cambio por nada."</p>
+        <div class="testi-card__author">
+          <div class="testi-card__avatar">V</div>
+          <div>
+            <div class="testi-card__name">Valeria M.</div>
+            <div class="testi-card__role">Mamá de alumna, 9 años</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal delay-1">
+        <div class="testi-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-card__text">"Empecé a los 35 sin ninguna experiencia y pensé que era tarde. En tres meses ya hacía cosas que nunca imaginé. El ambiente es increíble, nadie te juzga y siempre te impulsan a dar un paso más."</p>
+        <div class="testi-card__author">
+          <div class="testi-card__avatar">C</div>
+          <div>
+            <div class="testi-card__name">Carolina R.</div>
+            <div class="testi-card__role">Alumna adulta — Tela y Aro</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal delay-2">
+        <div class="testi-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-card__text">"Es el mejor lugar donde estuve. Las profes te enseñan con paciencia y siempre están atentas a que lo hagas bien. Cada clase aprendo algo nuevo y salgo con una energía que no se explica."</p>
+        <div class="testi-card__author">
+          <div class="testi-card__avatar">L</div>
+          <div>
+            <div class="testi-card__name">Luciana P.</div>
+            <div class="testi-card__role">Alumna — Tela Aérea</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -726,6 +837,27 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); } });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }).observe(el);
   });
+
+  const carouselState = {};
+  function moveCarousel(id, dir) {
+    const track = document.getElementById(id);
+    const slides = track.querySelectorAll('.carousel__slide');
+    carouselState[id] = ((carouselState[id] || 0) + dir + slides.length) % slides.length;
+    updateCarousel(id, track, slides);
+  }
+  function goCarousel(id, idx) {
+    const track = document.getElementById(id);
+    const slides = track.querySelectorAll('.carousel__slide');
+    carouselState[id] = idx;
+    updateCarousel(id, track, slides);
+  }
+  function updateCarousel(id, track, slides) {
+    const idx = carouselState[id] || 0;
+    track.style.transform = `translateX(-${idx * 100}%)`;
+    track.closest('.carousel').querySelectorAll('.carousel__dot').forEach((d, i) => {
+      d.classList.toggle('active', i === idx);
+    });
+  }
 
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
