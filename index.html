@@ -1,1874 +1,742 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-AR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Evolución Aérea — Escuela de Acrobacia Aérea</title>
-  <meta name="description" content="Aprendé acrobacia en tela, aro aéreo y acrobacia de piso con instructores certificados. Clases para adultos, jóvenes y niños en Buenos Aires." />
-  <meta property="og:title" content="Evolución Aérea — Escuela de Acrobacia Aérea" />
-  <meta property="og:description" content="Tu cuerpo puede hacer más de lo que imaginás. Clases de tela aérea, aro y acrobacia." />
-  <meta property="og:image" content="https://www.instagram.com/evolucionaerea/" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <style>
-    /* ─── DESIGN TOKENS — Brand Guardian + UI Designer ─── */
-    :root {
-      --teal:       #2EC4B6;
-      --teal-dark:  #1A9E92;
-      --teal-light: #E8F9F8;
-      --dark:       #1A1A2E;
-      --pink:       #FF6B9D;
-      --gold:       #C9A460;
-      --cream:      #FAF8F3;
-      --white:      #FFFFFF;
-      --text:       #2D2D2D;
-      --muted:      #6B7280;
-      --border:     #E5E7EB;
-
-      --font-display: 'Playfair Display', Georgia, serif;
-      --font-body:    'Inter', system-ui, sans-serif;
-
-      --radius:    12px;
-      --radius-lg: 20px;
-      --shadow-sm: 0 2px 8px rgba(0,0,0,.06);
-      --shadow-md: 0 8px 24px rgba(0,0,0,.10);
-      --shadow-lg: 0 20px 60px rgba(0,0,0,.15);
-
-      --transition: .25s ease;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--font-body);
-      color: var(--text);
-      background: var(--cream);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    img { max-width: 100%; display: block; }
-    a { color: inherit; text-decoration: none; }
-
-    .container {
-      width: 100%;
-      max-width: 1140px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* ─── NAVBAR ─── */
-    .nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(26,26,46,.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-    }
-
-    .nav-logo {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      color: var(--white);
-      letter-spacing: .02em;
-    }
-
-    .nav-logo span { color: var(--teal); }
-
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: rgba(255,255,255,.75);
-      font-size: .875rem;
-      font-weight: 500;
-      transition: color var(--transition);
-    }
-
-    .nav-links a:hover { color: var(--teal); }
-
-    .nav-cta {
-      background: var(--teal);
-      color: var(--white) !important;
-      padding: 10px 22px;
-      border-radius: 50px;
-      font-weight: 600 !important;
-      transition: background var(--transition), transform var(--transition) !important;
-    }
-
-    .nav-cta:hover {
-      background: var(--teal-dark) !important;
-      transform: translateY(-1px);
-    }
-
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-    }
-
-    /* ─── HERO ─── */
-    .hero {
-      min-height: 100vh;
-      background: linear-gradient(135deg, var(--dark) 0%, #0d2137 60%, #0a1628 100%);
-      display: flex;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 60% 60% at 80% 40%, rgba(46,196,182,.18) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 40% at 20% 70%, rgba(255,107,157,.12) 0%, transparent 70%);
-    }
-
-    /* Decorative silk ribbon */
-    .hero-silk {
-      position: absolute;
-      right: -40px;
-      top: 0;
-      bottom: 0;
-      width: 45%;
-      overflow: hidden;
-      pointer-events: none;
-    }
-
-    .hero-silk::before {
-      content: '';
-      position: absolute;
-      top: -10%;
-      right: 10%;
-      width: 3px;
-      height: 120%;
-      background: linear-gradient(180deg, transparent, var(--teal) 20%, rgba(46,196,182,.4) 80%, transparent);
-      transform: rotate(-8deg);
-      transform-origin: top;
-    }
-
-    .hero-silk::after {
-      content: '';
-      position: absolute;
-      top: -10%;
-      right: 18%;
-      width: 2px;
-      height: 120%;
-      background: linear-gradient(180deg, transparent, var(--pink) 30%, rgba(255,107,157,.3) 70%, transparent);
-      transform: rotate(-12deg);
-      transform-origin: top;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 600px;
-    }
-
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(46,196,182,.15);
-      border: 1px solid rgba(46,196,182,.3);
-      color: var(--teal);
-      font-size: .8rem;
-      font-weight: 600;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      padding: 6px 16px;
-      border-radius: 50px;
-      margin-bottom: 24px;
-    }
-
-    .hero-tag::before {
-      content: '';
-      width: 6px; height: 6px;
-      background: var(--teal);
-      border-radius: 50%;
-    }
-
-    .hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(2.4rem, 5vw, 4rem);
-      color: var(--white);
-      line-height: 1.15;
-      margin-bottom: 20px;
-    }
-
-    .hero h1 em {
-      font-style: italic;
-      color: var(--teal);
-    }
-
-    .hero-sub {
-      font-size: 1.1rem;
-      color: rgba(255,255,255,.7);
-      margin-bottom: 40px;
-      max-width: 480px;
-      line-height: 1.7;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      background: var(--teal);
-      color: var(--white);
-      padding: 16px 32px;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 1rem;
-      border: none;
-      cursor: pointer;
-      transition: all var(--transition);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-primary:hover {
-      background: var(--teal-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 32px rgba(46,196,182,.4);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--white);
-      padding: 16px 32px;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 1rem;
-      border: 1px solid rgba(255,255,255,.3);
-      cursor: pointer;
-      transition: all var(--transition);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-outline:hover {
-      border-color: var(--teal);
-      color: var(--teal);
-    }
-
-    .hero-stats {
-      display: flex;
-      gap: 40px;
-      margin-top: 56px;
-      padding-top: 40px;
-      border-top: 1px solid rgba(255,255,255,.1);
-    }
-
-    .stat-item { color: var(--white); }
-    .stat-num {
-      display: block;
-      font-family: var(--font-display);
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--teal);
-    }
-    .stat-label {
-      font-size: .8rem;
-      color: rgba(255,255,255,.5);
-      text-transform: uppercase;
-      letter-spacing: .06em;
-    }
-
-    /* ─── SECTION BASE ─── */
-    .section { padding: 96px 0; }
-    .section-alt { background: var(--white); }
-
-    .section-label {
-      display: inline-block;
-      font-size: .75rem;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.8rem, 3vw, 2.8rem);
-      color: var(--dark);
-      line-height: 1.25;
-      margin-bottom: 16px;
-    }
-
-    .section-desc {
-      font-size: 1.05rem;
-      color: var(--muted);
-      max-width: 560px;
-      line-height: 1.7;
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 64px;
-    }
-
-    .section-header .section-desc { margin: 0 auto; }
-
-    /* ─── PROBLEMA (Growth Hacker pain points) ─── */
-    .problems-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
-
-    .problem-card {
-      background: var(--cream);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 32px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .problem-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 4px; height: 100%;
-      background: var(--pink);
-    }
-
-    .problem-icon {
-      font-size: 1.8rem;
-      margin-bottom: 16px;
-    }
-
-    .problem-card h3 {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-      color: var(--dark);
-    }
-
-    .problem-card p {
-      font-size: .9rem;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    /* ─── SERVICIOS ─── */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 28px;
-    }
-
-    .service-card {
-      background: var(--white);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      border: 1px solid var(--border);
-      transition: all var(--transition);
-      position: relative;
-    }
-
-    .service-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-      border-color: var(--teal);
-    }
-
-    .service-visual {
-      height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 5rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .service-visual-tela { background: linear-gradient(135deg, #1A1A2E, #0d2137); }
-    .service-visual-aro  { background: linear-gradient(135deg, #1a0d2e, #2d0a3e); }
-    .service-visual-acro { background: linear-gradient(135deg, #0d1a2e, #0a1828); }
-    .service-visual-kids { background: linear-gradient(135deg, #1a2e0d, #0d280a); }
-
-    .service-visual::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at center, rgba(46,196,182,.12), transparent 70%);
-    }
-
-    .service-emoji {
-      position: relative;
-      z-index: 1;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,.3));
-    }
-
-    .service-badge {
-      position: absolute;
-      top: 12px; right: 12px;
-      background: var(--teal);
-      color: var(--white);
-      font-size: .7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      padding: 4px 10px;
-      border-radius: 50px;
-      z-index: 2;
-    }
-
-    .service-body { padding: 28px; }
-
-    .service-body h3 {
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      margin-bottom: 8px;
-      color: var(--dark);
-    }
-
-    .service-body p {
-      font-size: .9rem;
-      color: var(--muted);
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .service-features {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .service-features li {
-      font-size: .85rem;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .service-features li::before {
-      content: '✓';
-      color: var(--teal);
-      font-weight: 700;
-      font-size: .8rem;
-    }
-
-    /* ─── CÓMO FUNCIONA ─── */
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 32px;
-      position: relative;
-    }
-
-    .steps::before {
-      content: '';
-      position: absolute;
-      top: 28px;
-      left: calc(12.5% + 28px);
-      right: calc(12.5% + 28px);
-      height: 2px;
-      background: linear-gradient(90deg, var(--teal), var(--pink));
-      opacity: .3;
-    }
-
-    @media (max-width: 768px) { .steps::before { display: none; } }
-
-    .step {
-      text-align: center;
-      position: relative;
-    }
-
-    .step-num {
-      width: 56px; height: 56px;
-      border-radius: 50%;
-      background: var(--teal);
-      color: var(--white);
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .step h3 {
-      font-family: var(--font-display);
-      font-size: 1.05rem;
-      margin-bottom: 8px;
-      color: var(--dark);
-    }
-
-    .step p {
-      font-size: .875rem;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    /* ─── TESTIMONIOS ─── */
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-    }
-
-    .testimonial-card {
-      background: var(--cream);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 32px;
-    }
-
-    .stars {
-      color: var(--gold);
-      font-size: 1rem;
-      letter-spacing: 2px;
-      margin-bottom: 16px;
-    }
-
-    .testimonial-text {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 1rem;
-      color: var(--dark);
-      line-height: 1.7;
-      margin-bottom: 20px;
-    }
-
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .author-avatar {
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--teal), var(--pink));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--white);
-      font-weight: 700;
-      font-size: .9rem;
-    }
-
-    .author-name {
-      font-weight: 600;
-      font-size: .9rem;
-      color: var(--dark);
-    }
-
-    .author-role {
-      font-size: .78rem;
-      color: var(--muted);
-    }
-
-    /* ─── PRECIOS (Sales System — Proposal Strategist) ─── */
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      align-items: start;
-    }
-
-    .pricing-card {
-      background: var(--white);
-      border: 2px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 40px 32px;
-      transition: all var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .pricing-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .pricing-card.featured {
-      border-color: var(--teal);
-      background: var(--dark);
-      color: var(--white);
-    }
-
-    .pricing-card.featured::before {
-      content: '⭐ MÁS ELEGIDO';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      background: var(--teal);
-      color: var(--white);
-      text-align: center;
-      font-size: .7rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      padding: 8px;
-    }
-
-    .pricing-card.featured .pricing-body { padding-top: 16px; }
-
-    .plan-name {
-      font-size: .75rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 12px;
-    }
-
-    .plan-price {
-      font-family: var(--font-display);
-      font-size: 2.8rem;
-      font-weight: 700;
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-
-    .pricing-card.featured .plan-price { color: var(--white); }
-    .pricing-card:not(.featured) .plan-price { color: var(--dark); }
-
-    .plan-price span {
-      font-size: 1rem;
-      font-weight: 400;
-      color: var(--muted);
-    }
-
-    .pricing-card.featured .plan-price span { color: rgba(255,255,255,.5); }
-
-    .plan-period {
-      font-size: .85rem;
-      color: var(--muted);
-      margin-bottom: 28px;
-    }
-
-    .pricing-card.featured .plan-period { color: rgba(255,255,255,.5); }
-
-    .plan-features {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 32px;
-    }
-
-    .plan-features li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: .9rem;
-      line-height: 1.4;
-    }
-
-    .plan-features li::before {
-      content: '✓';
-      color: var(--teal);
-      font-weight: 700;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .pricing-card.featured .plan-features li { color: rgba(255,255,255,.8); }
-    .pricing-card:not(.featured) .plan-features li { color: var(--text); }
-
-    .btn-plan {
-      width: 100%;
-      padding: 14px;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: .95rem;
-      border: 2px solid var(--teal);
-      cursor: pointer;
-      transition: all var(--transition);
-      text-align: center;
-      display: block;
-    }
-
-    .btn-plan-outline {
-      background: transparent;
-      color: var(--teal);
-    }
-
-    .btn-plan-outline:hover {
-      background: var(--teal);
-      color: var(--white);
-    }
-
-    .btn-plan-solid {
-      background: var(--teal);
-      color: var(--white);
-    }
-
-    .btn-plan-solid:hover {
-      background: var(--teal-dark);
-      transform: translateY(-1px);
-      box-shadow: 0 8px 24px rgba(46,196,182,.4);
-    }
-
-    /* ─── HORARIOS ─── */
-    .schedule-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-    }
-
-    .schedule-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px;
-    }
-
-    .schedule-day {
-      font-size: .7rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 16px;
-    }
-
-    .schedule-slot {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      gap: 12px;
-    }
-
-    .schedule-slot:last-child { border-bottom: none; }
-
-    .slot-time {
-      font-size: .85rem;
-      font-weight: 600;
-      color: var(--dark);
-      white-space: nowrap;
-    }
-
-    .slot-name {
-      font-size: .82rem;
-      color: var(--muted);
-      text-align: right;
-    }
-
-    .slot-tag {
-      font-size: .7rem;
-      font-weight: 600;
-      padding: 3px 10px;
-      border-radius: 50px;
-      white-space: nowrap;
-    }
-
-    .tag-mixed  { background: rgba(46,196,182,.12); color: var(--teal); }
-    .tag-kids   { background: rgba(255,107,157,.12); color: var(--pink); }
-    .tag-adults { background: rgba(201,164,96,.15); color: var(--gold); }
-
-    /* ─── FAQ ─── */
-    .faq-list {
-      max-width: 720px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .faq-item {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-
-    .faq-question {
-      width: 100%;
-      padding: 20px 24px;
-      text-align: left;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-family: var(--font-body);
-      font-size: .95rem;
-      font-weight: 600;
-      color: var(--dark);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      transition: color var(--transition);
-    }
-
-    .faq-question:hover { color: var(--teal); }
-
-    .faq-icon {
-      font-size: 1.2rem;
-      color: var(--teal);
-      flex-shrink: 0;
-      transition: transform var(--transition);
-    }
-
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height .35s ease;
-    }
-
-    .faq-answer-inner {
-      padding: 0 24px 20px;
-      font-size: .9rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .faq-item.open .faq-icon { transform: rotate(45deg); }
-    .faq-item.open .faq-answer { max-height: 300px; }
-
-    /* ─── FORM / CAPTURA (Sales Funnel) ─── */
-    .capture-section {
-      background: linear-gradient(135deg, var(--dark) 0%, #0d1a2e 100%);
-      padding: 96px 0;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .capture-section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 50% 80% at 0% 50%, rgba(46,196,182,.15), transparent),
-        radial-gradient(ellipse 40% 60% at 100% 50%, rgba(255,107,157,.1), transparent);
-    }
-
-    .capture-inner {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: center;
-    }
-
-    @media (max-width: 900px) {
-      .capture-inner { grid-template-columns: 1fr; gap: 40px; }
-    }
-
-    .capture-text .section-title { color: var(--white); }
-    .capture-text .section-desc  { color: rgba(255,255,255,.6); }
-
-    .capture-perks {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-top: 28px;
-    }
-
-    .capture-perks li {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: rgba(255,255,255,.8);
-      font-size: .9rem;
-    }
-
-    .perk-icon {
-      width: 32px; height: 32px;
-      background: rgba(46,196,182,.15);
-      border: 1px solid rgba(46,196,182,.3);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: .9rem;
-      flex-shrink: 0;
-    }
-
-    .capture-form {
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: var(--radius-lg);
-      padding: 40px;
-      backdrop-filter: blur(8px);
-    }
-
-    .form-title {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      color: var(--white);
-      margin-bottom: 8px;
-    }
-
-    .form-subtitle {
-      font-size: .875rem;
-      color: rgba(255,255,255,.5);
-      margin-bottom: 28px;
-    }
-
-    .form-group { margin-bottom: 16px; }
-
-    .form-group label {
-      display: block;
-      font-size: .8rem;
-      font-weight: 600;
-      color: rgba(255,255,255,.7);
-      margin-bottom: 6px;
-    }
-
-    .form-group input,
-    .form-group select {
-      width: 100%;
-      padding: 12px 16px;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.15);
-      border-radius: 8px;
-      font-family: var(--font-body);
-      font-size: .9rem;
-      color: var(--white);
-      transition: border-color var(--transition);
-      appearance: none;
-    }
-
-    .form-group input::placeholder { color: rgba(255,255,255,.3); }
-
-    .form-group input:focus,
-    .form-group select:focus {
-      outline: none;
-      border-color: var(--teal);
-      background: rgba(46,196,182,.06);
-    }
-
-    .form-group select option { background: var(--dark); color: var(--white); }
-
-    .form-submit {
-      width: 100%;
-      margin-top: 8px;
-      background: var(--teal);
-      color: var(--white);
-      padding: 16px;
-      border: none;
-      border-radius: 50px;
-      font-family: var(--font-body);
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all var(--transition);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .form-submit:hover {
-      background: var(--teal-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 32px rgba(46,196,182,.4);
-    }
-
-    .form-privacy {
-      font-size: .75rem;
-      color: rgba(255,255,255,.3);
-      text-align: center;
-      margin-top: 12px;
-    }
-
-    /* ─── SUCCESS MESSAGE ─── */
-    .success-msg {
-      display: none;
-      text-align: center;
-      padding: 20px 0;
-    }
-
-    .success-msg.visible { display: block; }
-
-    .success-icon {
-      font-size: 3rem;
-      margin-bottom: 12px;
-    }
-
-    .success-msg h3 {
-      font-family: var(--font-display);
-      color: var(--white);
-      font-size: 1.4rem;
-      margin-bottom: 8px;
-    }
-
-    .success-msg p {
-      color: rgba(255,255,255,.6);
-      font-size: .9rem;
-    }
-
-    /* ─── WHATSAPP FLOAT ─── */
-    .wa-float {
-      position: fixed;
-      bottom: 28px;
-      right: 28px;
-      z-index: 200;
-      width: 60px; height: 60px;
-      background: #25D366;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 20px rgba(37,211,102,.4);
-      transition: all var(--transition);
-      cursor: pointer;
-    }
-
-    .wa-float:hover {
-      transform: scale(1.1) translateY(-2px);
-      box-shadow: 0 8px 32px rgba(37,211,102,.5);
-    }
-
-    .wa-float svg {
-      width: 32px; height: 32px;
-      fill: var(--white);
-    }
-
-    /* ─── FOOTER ─── */
-    .footer {
-      background: var(--dark);
-      color: rgba(255,255,255,.5);
-      padding: 48px 0 32px;
-    }
-
-    .footer-inner {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 48px;
-      margin-bottom: 40px;
-    }
-
-    @media (max-width: 768px) {
-      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
-    }
-
-    .footer-brand .nav-logo {
-      font-size: 1.3rem;
-      margin-bottom: 12px;
-      display: block;
-    }
-
-    .footer-brand p {
-      font-size: .875rem;
-      line-height: 1.6;
-      max-width: 280px;
-    }
-
-    .footer-col h4 {
-      color: var(--white);
-      font-size: .85rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      margin-bottom: 16px;
-    }
-
-    .footer-links {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .footer-links a {
-      font-size: .875rem;
-      color: rgba(255,255,255,.45);
-      transition: color var(--transition);
-    }
-
-    .footer-links a:hover { color: var(--teal); }
-
-    .footer-bottom {
-      padding-top: 24px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      font-size: .8rem;
-    }
-
-    /* ─── INSTAGRAM STRIP ─── */
-    .ig-strip {
-      background: var(--dark);
-      padding: 48px 0;
-      text-align: center;
-    }
-
-    .ig-label {
-      color: rgba(255,255,255,.5);
-      font-size: .875rem;
-      margin-bottom: 24px;
-    }
-
-    .ig-label a {
-      color: var(--teal);
-      font-weight: 600;
-    }
-
-    .ig-label a:hover { text-decoration: underline; }
-
-    /* Simulación de grilla IG */
-    .ig-grid {
-      display: flex;
-      gap: 3px;
-      justify-content: center;
-      flex-wrap: wrap;
-      max-width: 480px;
-      margin: 0 auto 24px;
-    }
-
-    .ig-thumb {
-      width: 80px; height: 80px;
-      border-radius: 4px;
-      background: linear-gradient(135deg, var(--dark), #2d3748);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .ig-thumb::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(46,196,182,.0);
-      transition: background var(--transition);
-    }
-
-    .ig-thumb:hover::after { background: rgba(46,196,182,.25); }
-
-    /* ─── SCROLL ANIMATIONS ─── */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity .6s ease, transform .6s ease;
-    }
-
-    .fade-up.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* Stagger delays */
-    .fade-up:nth-child(2) { transition-delay: .1s; }
-    .fade-up:nth-child(3) { transition-delay: .2s; }
-    .fade-up:nth-child(4) { transition-delay: .3s; }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 640px) {
-      .hero-stats { gap: 24px; flex-wrap: wrap; }
-      .section { padding: 64px 0; }
-      .capture-form { padding: 28px 20px; }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Evolución Aérea — Academia de Artes Aéreas · Mar del Plata</title>
+<meta name="description" content="Academia de acrobacia aérea en Mar del Plata. Tela aérea, aro y acrobacia de piso. Tu cuerpo puede hacer más de lo que imaginás." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --teal: #2EC4B6;
+    --teal-deep: #1f9c91;
+    --navy: #1A1A2E;
+    --pink: #FF6B9D;
+    --gold: #C9A460;
+    --cream: #FAF8F3;
+    --cream-2: #F2EEE4;
+    --ink: #16161f;
+    --muted: #6b6b75;
+    --line: rgba(26,26,46,0.10);
+    --serif: 'Playfair Display', 'Times New Roman', serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    --container: 1240px;
+    --radius: 14px;
+    --radius-lg: 24px;
+    --ease: cubic-bezier(.2,.8,.2,1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--cream);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+  ::selection { background: var(--teal); color: var(--navy); }
+
+  .container { max-width: var(--container); margin: 0 auto; padding: 0 28px; }
+
+  /* NAV */
+  .nav {
+    position: fixed; inset: 0 0 auto 0; z-index: 100;
+    padding: 18px 0;
+    transition: background-color .35s var(--ease), padding .35s var(--ease), border-color .35s var(--ease);
+    border-bottom: 1px solid transparent;
+  }
+  .nav.scrolled {
+    background: rgba(250,248,243,0.88);
+    backdrop-filter: blur(18px);
+    border-bottom-color: var(--line);
+    padding: 12px 0;
+  }
+  .nav__inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .brand { display: flex; align-items: center; gap: 12px; color: var(--cream); transition: color .35s var(--ease); }
+  .nav.scrolled .brand { color: var(--navy); }
+  .brand__mark {
+    width: 38px; height: 38px; border-radius: 50%;
+    border: 1.5px solid currentColor;
+    display: grid; place-items: center;
+    font-family: var(--serif); font-style: italic; font-size: 18px;
+  }
+  .brand__name { font-family: var(--serif); font-size: 19px; font-weight: 600; line-height: 1; }
+  .brand__tag { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; opacity: .7; margin-top: 3px; }
+  .nav__links { display: flex; align-items: center; gap: 36px; color: var(--cream); transition: color .35s var(--ease); }
+  .nav.scrolled .nav__links { color: var(--navy); }
+  .nav__links a { font-size: 13.5px; letter-spacing: 0.04em; font-weight: 500; position: relative; padding: 4px 0; }
+  .nav__links a::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+    height: 1px; background: var(--teal);
+    transform: scaleX(0); transform-origin: left; transition: transform .35s var(--ease);
+  }
+  .nav__links a:hover::after { transform: scaleX(1); }
+  .nav__cta {
+    background: var(--teal); color: var(--navy);
+    padding: 11px 20px; border-radius: 999px;
+    font-size: 13px; font-weight: 600;
+    transition: transform .25s var(--ease), background .25s var(--ease);
+  }
+  .nav__cta:hover { background: #34d8c8; transform: translateY(-1px); }
+  .nav__burger { display: none; }
+  @media (max-width: 860px) {
+    .nav__links { display: none; }
+    .nav__burger { display: grid; place-items: center; width: 40px; height: 40px; }
+    .brand__tag { display: none; }
+    .nav .brand { color: var(--cream); }
+    .nav.scrolled .brand { color: var(--navy); }
+  }
+
+  /* HERO */
+  .hero {
+    position: relative; min-height: 100vh; background: var(--navy); color: var(--cream);
+    overflow: hidden; display: flex; align-items: center; padding: 140px 0 90px;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 75% 50%, rgba(46,196,182,.25), transparent 60%),
+                radial-gradient(ellipse at 10% 90%, rgba(255,107,157,.12), transparent 55%);
+    z-index: 1;
+  }
+  .hero__bg { position: absolute; right: -4%; top: 0; bottom: 0; width: 62%; z-index: 0; }
+  .hero__bg img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center 30%;
+    filter: grayscale(100%) contrast(1.05) brightness(.85);
+    mask-image: linear-gradient(to right, transparent 0%, #000 30%, #000 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 30%, #000 100%);
+  }
+  .hero__bg::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(105deg, rgba(26,26,46,1) 0%, rgba(26,26,46,.55) 38%, rgba(26,26,46,.05) 60%, rgba(46,196,182,.18) 100%);
+  }
+  .hero__content { position: relative; z-index: 2; max-width: 680px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--teal); font-weight: 500; margin-bottom: 28px;
+  }
+  .eyebrow::before { content: ""; width: 32px; height: 1px; background: currentColor; }
+  .hero h1 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(48px, 7vw, 96px); line-height: 0.98;
+    letter-spacing: -0.02em; margin-bottom: 28px;
+  }
+  .hero h1 em { font-style: italic; color: var(--teal); font-weight: 400; }
+  .hero__sub {
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(18px, 1.6vw, 22px); color: var(--cream);
+    opacity: .85; margin-bottom: 22px;
+  }
+  .hero__sub span { display: inline-block; margin: 0 10px; color: var(--teal); }
+  .hero__text { font-size: 17px; max-width: 480px; color: rgba(250,248,243,.75); margin-bottom: 40px; }
+  .hero__cta {
+    display: inline-flex; align-items: center; gap: 14px;
+    background: var(--teal); color: var(--navy);
+    padding: 18px 30px; border-radius: 999px;
+    font-size: 15px; font-weight: 600;
+    box-shadow: 0 14px 40px -10px rgba(46,196,182,.55);
+    transition: transform .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease);
+  }
+  .hero__cta:hover { transform: translateY(-2px); background: #34d8c8; box-shadow: 0 20px 48px -12px rgba(46,196,182,.7); }
+  .hero__cta svg { transition: transform .25s var(--ease); }
+  .hero__cta:hover svg { transform: translateX(4px); }
+  .hero__meta { position: absolute; bottom: 36px; left: 0; right: 0; z-index: 2; }
+  .hero__meta-row {
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 20px;
+    color: rgba(250,248,243,.55); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  .hero__scroll { display: flex; align-items: center; gap: 12px; }
+  .hero__scroll-line {
+    width: 60px; height: 1px; background: var(--teal); position: relative; overflow: hidden;
+  }
+  .hero__scroll-line::after {
+    content: ""; position: absolute; inset: 0;
+    background: rgba(250,248,243,.2);
+    animation: scrollLine 2.4s var(--ease) infinite;
+  }
+  @keyframes scrollLine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  @media (max-width: 860px) {
+    .hero { padding: 130px 0 80px; min-height: auto; }
+    .hero__bg { width: 100%; right: 0; opacity: .55; }
+    .hero__bg img {
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 25%, #000 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 25%, #000 100%);
+    }
+    .hero__bg::after { background: linear-gradient(180deg, rgba(26,26,46,.7), rgba(26,26,46,.92)); }
+    .hero__meta { display: none; }
+  }
+
+  /* SECTIONS */
+  section { position: relative; }
+  .section { padding: 130px 0; }
+  .section--dark { background: var(--navy); color: var(--cream); }
+  .section-head { max-width: 760px; margin-bottom: 72px; }
+  .section-head--center { margin-left: auto; margin-right: auto; text-align: center; }
+  .section-eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+    font-weight: 500; color: var(--teal-deep); margin-bottom: 22px;
+  }
+  .section--dark .section-eyebrow { color: var(--teal); }
+  .section-eyebrow::before { content: ""; width: 28px; height: 1px; background: currentColor; }
+  .section-head--center .section-eyebrow::after { content: ""; width: 28px; height: 1px; background: currentColor; }
+  .section-title {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(36px, 4.5vw, 60px); line-height: 1.05;
+    letter-spacing: -0.02em; margin-bottom: 22px;
+  }
+  .section-title em { font-style: italic; color: var(--teal-deep); font-weight: 400; }
+  .section--dark .section-title em { color: var(--teal); }
+  .section-lede { font-size: 18px; color: var(--muted); max-width: 580px; }
+  .section--dark .section-lede { color: rgba(250,248,243,.7); }
+
+  /* QUE TRABAJAMOS */
+  .what { background: var(--cream); }
+  .what__grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+  .pillar {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg);
+    padding: 38px 32px 36px; position: relative;
+    transition: transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
+    overflow: hidden;
+  }
+  .pillar::after {
+    content: ""; position: absolute; left: 32px; right: 32px; bottom: 0;
+    height: 1px; background: var(--teal);
+    transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease);
+  }
+  .pillar:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -30px rgba(26,26,46,.18); border-color: transparent; }
+  .pillar:hover::after { transform: scaleX(1); }
+  .pillar__num { font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--teal-deep); }
+  .pillar__icon { width: 56px; height: 56px; margin: 22px 0 28px; color: var(--navy); }
+  .pillar h3 { font-family: var(--serif); font-weight: 500; font-size: 28px; letter-spacing: -0.01em; margin-bottom: 12px; }
+  .pillar p { font-size: 14.5px; color: var(--muted); line-height: 1.6; }
+  .what__foot {
+    margin-top: 60px; padding-top: 36px; border-top: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 30px; flex-wrap: wrap;
+  }
+  .what__foot p { font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--navy); max-width: 720px; line-height: 1.4; }
+  @media (max-width: 1000px) { .what__grid { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 540px) { .what__grid { grid-template-columns: 1fr; } }
+
+  /* POR QUE ELEGIRNOS */
+  .why { background: var(--navy); color: var(--cream); overflow: hidden; }
+  .why__layout { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 80px; align-items: center; }
+  .why__media {
+    position: relative; aspect-ratio: 4/5;
+    border-radius: var(--radius-lg); overflow: hidden; background: #000;
+  }
+  .why__media img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.08); }
+  .why__media::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(46,196,182,.35));
+    mix-blend-mode: screen;
+  }
+  .why__media-tag {
+    position: absolute; bottom: 24px; left: 24px;
+    color: var(--cream); font-family: var(--serif); font-style: italic; font-size: 18px; z-index: 1;
+  }
+  .why__media-tag::before {
+    content: ""; display: inline-block; width: 24px; height: 1px;
+    background: var(--teal); margin-right: 12px; vertical-align: middle;
+  }
+  .why__list { display: grid; gap: 8px; margin-top: 40px; }
+  .why__item {
+    display: grid; grid-template-columns: 56px 1fr; gap: 24px;
+    padding: 26px 0; border-top: 1px solid rgba(250,248,243,.12);
+    align-items: start; transition: padding .4s var(--ease);
+  }
+  .why__item:last-child { border-bottom: 1px solid rgba(250,248,243,.12); }
+  .why__item:hover { padding-left: 8px; }
+  .why__item-num { font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--teal); line-height: 1; padding-top: 6px; }
+  .why__item h4 { font-family: var(--serif); font-weight: 500; font-size: 24px; letter-spacing: -0.01em; margin-bottom: 6px; }
+  .why__item p { font-size: 15px; color: rgba(250,248,243,.65); line-height: 1.55; max-width: 480px; }
+  @media (max-width: 900px) { .why__layout { grid-template-columns: 1fr; gap: 50px; } .why__media { aspect-ratio: 4/3; } }
+
+  /* HORARIOS */
+  .schedule { background: var(--cream-2); }
+  .schedule__head-row { display: flex; justify-content: space-between; align-items: end; flex-wrap: wrap; gap: 30px; margin-bottom: 60px; }
+  .schedule__day-pill {
+    display: inline-flex; align-items: center; gap: 14px;
+    background: var(--navy); color: var(--cream);
+    padding: 14px 24px; border-radius: 999px;
+    font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+  }
+  .schedule__day-pill .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--teal); box-shadow: 0 0 0 4px rgba(46,196,182,.18);
+  }
+  .schedule__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .slot {
+    background: var(--cream); border-radius: var(--radius-lg); padding: 38px 32px;
+    border: 1px solid var(--line);
+    transition: transform .4s var(--ease), background .4s var(--ease), color .4s var(--ease);
+    display: flex; flex-direction: column; min-height: 320px;
+    position: relative; overflow: hidden;
+  }
+  .slot:hover { background: var(--navy); color: var(--cream); transform: translateY(-6px); }
+  .slot__index { font-family: var(--serif); font-style: italic; font-size: 13px; color: var(--teal-deep); }
+  .slot:hover .slot__index { color: var(--teal); }
+  .slot__age { font-family: var(--serif); font-weight: 500; font-size: 32px; line-height: 1.1; margin: 22px 0 12px; }
+  .slot__age small {
+    display: block; font-family: var(--sans); font-size: 13px; font-style: normal;
+    font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-top: 6px;
+  }
+  .slot:hover .slot__age small { color: rgba(250,248,243,.65); }
+  .slot__time {
+    margin-top: auto; padding-top: 28px; border-top: 1px solid var(--line);
+    display: flex; align-items: baseline; gap: 8px; transition: border-color .4s var(--ease);
+  }
+  .slot:hover .slot__time { border-color: rgba(250,248,243,.18); }
+  .slot__time strong { font-family: var(--serif); font-weight: 500; font-size: 30px; letter-spacing: -0.02em; }
+  .slot__time span { font-size: 13px; color: var(--muted); }
+  .slot:hover .slot__time span { color: rgba(250,248,243,.6); }
+  .slot__bar {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+    background: var(--teal); transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease);
+  }
+  .slot:hover .slot__bar { transform: scaleX(1); }
+  @media (max-width: 900px) { .schedule__grid { grid-template-columns: 1fr; } }
+
+  /* GALLERY */
+  .gallery { background: var(--cream); }
+  .gallery__grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.9fr 1fr;
+    grid-template-rows: 280px 280px;
+    gap: 16px; margin-top: 40px;
+  }
+  .gallery__cell { position: relative; border-radius: var(--radius-lg); overflow: hidden; background: #000; cursor: pointer; }
+  .gallery__cell:nth-child(1) { grid-row: 1 / span 2; }
+  .gallery__cell:nth-child(2) { grid-column: 2; grid-row: 1 / span 2; }
+  .gallery__cell:nth-child(3) { grid-column: 3; grid-row: 1; }
+  .gallery__cell:nth-child(4) { grid-column: 3; grid-row: 2; }
+  .gallery__cell img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(100%) contrast(1.05) brightness(.92);
+    transition: transform .8s var(--ease), filter .6s var(--ease);
+  }
+  .gallery__cell::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(26,26,46,.7));
+    z-index: 1; opacity: 0; transition: opacity .4s var(--ease);
+  }
+  .gallery__cell:hover img { transform: scale(1.06); filter: grayscale(0%) contrast(1.05); }
+  .gallery__cell:hover::after { opacity: 1; }
+  .gallery__cell-label {
+    position: absolute; left: 24px; bottom: 22px; z-index: 2;
+    color: var(--cream); font-family: var(--serif); font-style: italic; font-size: 17px;
+    transform: translateY(8px); opacity: 0; transition: transform .4s var(--ease), opacity .4s var(--ease);
+  }
+  .gallery__cell-label::before {
+    content: ""; display: inline-block; width: 18px; height: 1px;
+    background: var(--teal); margin-right: 10px; vertical-align: middle;
+  }
+  .gallery__cell:hover .gallery__cell-label { transform: none; opacity: 1; }
+  @media (max-width: 900px) {
+    .gallery__grid { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 220px 220px; gap: 12px; }
+    .gallery__cell:nth-child(1) { grid-row: 1; grid-column: 1 / span 2; }
+    .gallery__cell:nth-child(2) { grid-row: 2; grid-column: 1; }
+    .gallery__cell:nth-child(3) { grid-row: 2; grid-column: 2; }
+    .gallery__cell:nth-child(4) { grid-row: 3; grid-column: 1 / span 2; }
+  }
+
+  /* COMUNIDAD */
+  .community {
+    position: relative; height: 720px; overflow: hidden;
+    color: var(--cream); display: flex; align-items: center;
+  }
+  .community__bg { position: absolute; inset: 0; z-index: 0; }
+  .community__bg img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.05) brightness(.7); }
+  .community__bg::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(26,26,46,.85) 0%, rgba(26,26,46,.45) 60%, rgba(46,196,182,.35) 100%);
+  }
+  .community__content { position: relative; z-index: 1; max-width: 640px; }
+  .community__title {
+    font-family: var(--serif); font-weight: 500; font-style: italic;
+    font-size: clamp(40px, 5.5vw, 72px); line-height: 1.05; letter-spacing: -0.02em;
+  }
+  .community__title em { color: var(--teal); font-weight: 400; }
+  .community__text { margin-top: 28px; font-size: 18px; color: rgba(250,248,243,.85); max-width: 520px; }
+  .community__stats {
+    display: flex; gap: 50px; margin-top: 50px;
+    border-top: 1px solid rgba(250,248,243,.18); padding-top: 30px; flex-wrap: wrap;
+  }
+  .stat__num { font-family: var(--serif); font-size: 44px; font-weight: 500; color: var(--teal); line-height: 1; }
+  .stat__label { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250,248,243,.65); margin-top: 8px; }
+  @media (max-width: 700px) { .community { height: auto; padding: 100px 0; } }
+
+  /* CTA FINAL */
+  .cta-final {
+    background: var(--cream); padding: 140px 0;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .cta-final__ornament {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 700px; height: 700px;
+    border: 1px solid var(--line); border-radius: 50%;
+    z-index: 0; pointer-events: none;
+  }
+  .cta-final__ornament::before {
+    content: ""; position: absolute; inset: 80px;
+    border: 1px solid var(--line); border-radius: 50%;
+  }
+  .cta-final__inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+  .cta-final h2 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(48px, 6vw, 88px); line-height: 1; letter-spacing: -0.025em;
+  }
+  .cta-final h2 em { font-style: italic; color: var(--teal-deep); font-weight: 400; }
+  .cta-final p { margin: 28px auto 44px; font-size: 19px; color: var(--muted); max-width: 460px; }
+  .cta-final__buttons { display: inline-flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 18px 28px; border-radius: 999px;
+    font-size: 14.5px; font-weight: 600; letter-spacing: 0.02em;
+    transition: transform .25s var(--ease), background .25s var(--ease), color .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .btn--primary { background: var(--teal); color: var(--navy); box-shadow: 0 14px 40px -12px rgba(46,196,182,.6); }
+  .btn--primary:hover { background: #34d8c8; transform: translateY(-2px); box-shadow: 0 20px 48px -14px rgba(46,196,182,.75); }
+  .btn--ghost { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); }
+  .btn--ghost:hover { background: var(--navy); color: var(--cream); transform: translateY(-2px); }
+
+  /* FOOTER */
+  .footer { background: var(--navy); color: rgba(250,248,243,.7); padding: 80px 0 40px; }
+  .footer__top {
+    display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 60px;
+    padding-bottom: 60px; border-bottom: 1px solid rgba(250,248,243,.12);
+  }
+  .footer__brand { font-family: var(--serif); font-style: italic; font-size: 44px; color: var(--cream); line-height: 1; }
+  .footer__brand-tag {
+    display: block; font-family: var(--sans); font-size: 11px; font-style: normal;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--teal); margin-top: 18px;
+  }
+  .footer__brand-text { margin-top: 24px; font-size: 14px; line-height: 1.6; max-width: 320px; }
+  .footer h5 {
+    font-family: var(--sans); font-size: 11px; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--cream); font-weight: 500; margin-bottom: 22px;
+  }
+  .footer__col p, .footer__col a { display: block; font-size: 14.5px; color: rgba(250,248,243,.7); line-height: 1.8; transition: color .2s var(--ease); }
+  .footer__col a:hover { color: var(--teal); }
+  .footer__bottom {
+    margin-top: 40px; display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 14px; font-size: 12px; color: rgba(250,248,243,.5);
+  }
+  @media (max-width: 800px) { .footer__top { grid-template-columns: 1fr; gap: 40px; } }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal.delay-1 { transition-delay: .1s; }
+  .reveal.delay-2 { transition-delay: .2s; }
+  .reveal.delay-3 { transition-delay: .3s; }
+  .reveal.delay-4 { transition-delay: .4s; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; }
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  }
+</style>
 </head>
-
 <body>
 
-  <!-- ─── NAVBAR ─── -->
-  <nav class="nav">
-    <div class="container nav-inner">
-      <div class="nav-logo">Evolución <span>Aérea</span></div>
-      <ul class="nav-links">
-        <li><a href="#servicios">Disciplinas</a></li>
-        <li><a href="#horarios">Horarios</a></li>
-        <li><a href="#precios">Precios</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-        <li><a href="#inscripcion" class="nav-cta">Clase de prueba</a></li>
-      </ul>
+<nav class="nav" id="nav">
+  <div class="container nav__inner">
+    <a href="#top" class="brand">
+      <span class="brand__mark">E</span>
+      <span>
+        <span class="brand__name">Evolución Aérea</span>
+        <span class="brand__tag">Academia de Artes Aéreas</span>
+      </span>
+    </a>
+    <div class="nav__links">
+      <a href="#disciplinas">Disciplinas</a>
+      <a href="#academia">Academia</a>
+      <a href="#horarios">Horarios</a>
+      <a href="#galeria">Galería</a>
+      <a href="#contacto">Contacto</a>
     </div>
-  </nav>
+    <a href="#contacto" class="nav__cta">Probar una clase</a>
+    <button class="nav__burger" aria-label="Menú">
+      <svg width="22" height="14" viewBox="0 0 22 14" fill="none"><path d="M0 1h22M0 7h22M0 13h22" stroke="currentColor" stroke-width="1.5"/></svg>
+    </button>
+  </div>
+</nav>
 
-  <!-- ─── HERO ─── -->
-  <section class="hero">
-    <div class="hero-silk"></div>
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-tag">Certificados por @asa.acrobatas</div>
-        <h1>Tu cuerpo puede<br /><em>volar más alto</em><br />de lo que imaginás</h1>
-        <p class="hero-sub">
-          Tela aérea, aro y acrobacia de piso para adultos, jóvenes y niños.
-          Instructores certificados, grupos reducidos, técnica real.
-        </p>
-        <div class="hero-actions">
-          <a href="#inscripcion" class="btn-primary">
-            <span>Reservá tu clase de prueba</span>
-            <span>→</span>
-          </a>
-          <a href="#servicios" class="btn-outline">
-            <span>Ver disciplinas</span>
-          </a>
-        </div>
-        <div class="hero-stats">
-          <div class="stat-item">
-            <span class="stat-num">+5</span>
-            <span class="stat-label">Años de experiencia</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-num">4</span>
-            <span class="stat-label">Disciplinas</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-num">∞</span>
-            <span class="stat-label">Límites rotos</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── PROBLEMAS / DOLOR ─── -->
-  <section class="section section-alt">
-    <div class="container">
-      <div class="section-header fade-up">
-        <span class="section-label">¿Te identificás?</span>
-        <h2 class="section-title">Lo que sentís antes de empezar</h2>
-        <p class="section-desc">
-          La mayoría de nuestros alumnos llegaron con estas dudas. Hoy no pueden imaginar su semana sin clases.
-        </p>
-      </div>
-      <div class="problems-grid">
-        <div class="problem-card fade-up">
-          <div class="problem-icon">😔</div>
-          <h3>"Siempre quise pero creí que era solo para artistas"</h3>
-          <p>No necesitás experiencia previa. Empezamos desde cero y construimos técnica real a tu ritmo.</p>
-        </div>
-        <div class="problem-card fade-up">
-          <div class="problem-icon">⏰</div>
-          <h3>"No sé si tengo el cuerpo ni la edad para esto"</h3>
-          <p>Tenemos alumnos desde los 5 hasta más de 50 años. La acrobacia aérea se adapta a cada cuerpo.</p>
-        </div>
-        <div class="problem-card fade-up">
-          <div class="problem-icon">🏋️</div>
-          <h3>"Estoy cansada del gym — necesito algo que me apasione"</h3>
-          <p>El entrenamiento aéreo trabaja fuerza, flexibilidad y coordinación sin que sientas que estás "haciendo ejercicio".</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── SERVICIOS ─── -->
-  <section id="servicios" class="section">
-    <div class="container">
-      <div class="section-header fade-up">
-        <span class="section-label">Disciplinas</span>
-        <h2 class="section-title">Elegí tu camino aéreo</h2>
-        <p class="section-desc">
-          Cada disciplina es una forma distinta de mover el cuerpo en el aire. Podés combinarlas.
-        </p>
-      </div>
-      <div class="services-grid">
-
-        <div class="service-card fade-up">
-          <div class="service-visual service-visual-tela">
-            <span class="service-emoji">🎀</span>
-          </div>
-          <div class="service-body">
-            <h3>Tela Aérea</h3>
-            <p>La disciplina más expresiva y versátil. Construís vocabulario de movimiento en la tela desde las bases hasta figuras avanzadas.</p>
-            <ul class="service-features">
-              <li>Apto para principiantes absolutos</li>
-              <li>Grupos adultos y juveniles</li>
-              <li>Énfasis en técnica y seguridad</li>
-              <li>Progresión clara nivel a nivel</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="service-card fade-up">
-          <div class="service-visual service-visual-aro">
-            <span class="service-emoji">⭕</span>
-          </div>
-          <div class="service-body">
-            <h3>Aro Aéreo (Lyra)</h3>
-            <p>Fuerza, elegancia y fluidez en el aro. Una disciplina que combina danza, acrobacia y equilibrio en el aire.</p>
-            <ul class="service-features">
-              <li>Nivel inicial y avanzado</li>
-              <li>Trabajo de fuerza funcional</li>
-              <li>Estética y expresión artística</li>
-              <li>Coreografías propias</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="service-card fade-up">
-          <div class="service-visual service-visual-acro">
-            <span class="service-emoji">🤸</span>
-          </div>
-          <div class="service-body">
-            <h3>Acrobacia de Piso</h3>
-            <p>La base de todo. Volteretas, invertidas, equilibrios y work de piso que potencian tu desarrollo en las artes aéreas.</p>
-            <ul class="service-features">
-              <li>Base para cualquier disciplina</li>
-              <li>Mejora fuerza y coordinación</li>
-              <li>Metodología progresiva</li>
-              <li>Ideal como complemento</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="service-card fade-up">
-          <div class="service-visual service-visual-kids">
-            <span class="service-emoji" style="font-size:3.5rem">🧒🎪</span>
-            <span class="service-badge">Niños</span>
-          </div>
-          <div class="service-body">
-            <h3>Clases Infantiles</h3>
-            <p>Para niños desde los 5 años. Desarrollan fuerza, coordinación, confianza y creatividad en un entorno seguro y divertido.</p>
-            <ul class="service-features">
-              <li>Grupos reducidos por edad</li>
-              <li>Instructores especializados</li>
-              <li>Muestras y presentaciones</li>
-              <li>Materiales incluidos</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── CÓMO EMPEZAR ─── -->
-  <section class="section section-alt">
-    <div class="container">
-      <div class="section-header fade-up">
-        <span class="section-label">Proceso</span>
-        <h2 class="section-title">Empezar es más fácil de lo que pensás</h2>
-        <p class="section-desc">Cuatro pasos para tu primera clase.</p>
-      </div>
-      <div class="steps">
-        <div class="step fade-up">
-          <div class="step-num">1</div>
-          <h3>Completás el formulario</h3>
-          <p>Contanos qué disciplina te interesa y tu disponibilidad horaria.</p>
-        </div>
-        <div class="step fade-up">
-          <div class="step-num">2</div>
-          <h3>Te contactamos en 24hs</h3>
-          <p>Un instructor te asesora y reserva tu clase de prueba sin compromiso.</p>
-        </div>
-        <div class="step fade-up">
-          <div class="step-num">3</div>
-          <h3>Venís a tu primera clase</h3>
-          <p>Sin experiencia, sin ropa especial. Solo ropa cómoda y muchas ganas.</p>
-        </div>
-        <div class="step fade-up">
-          <div class="step-num">4</div>
-          <h3>Tomás la decisión</h3>
-          <p>Si te enamorás (y lo vas a hacer), elegís tu plan y empezás el camino.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── TESTIMONIOS ─── -->
-  <section class="section">
-    <div class="container">
-      <div class="section-header fade-up">
-        <span class="section-label">Alumnos</span>
-        <h2 class="section-title">Los que ya vuelan</h2>
-      </div>
-      <div class="testimonials-grid">
-
-        <div class="testimonial-card fade-up">
-          <div class="stars">★★★★★</div>
-          <p class="testimonial-text">"Llegué sin saber nada y en tres meses ya hacía figuras que jamás imaginé posibles. La profe tiene una paciencia y un método increíbles."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar">MA</div>
-            <div>
-              <div class="author-name">María A.</div>
-              <div class="author-role">Alumna de Tela Aérea · 8 meses</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card fade-up">
-          <div class="stars">★★★★★</div>
-          <p class="testimonial-text">"Mi hija no quería hacer actividades físicas y ahora no se pierde una clase. Los grupos infantiles son lo mejor — seguros, divertidos y exigentes."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar">CR</div>
-            <div>
-              <div class="author-name">Carolina R.</div>
-              <div class="author-role">Mamá · Clases infantiles</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card fade-up">
-          <div class="stars">★★★★★</div>
-          <p class="testimonial-text">"Vine del gym clásico y esto me cambió la vida. Es deporte, es arte, es comunidad. La progresiónque propone Evolución Aérea no la vi en ningún otro lado."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar">JL</div>
-            <div>
-              <div class="author-name">Julieta L.</div>
-              <div class="author-role">Alumna de Aro · 1 año</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── HORARIOS ─── -->
-  <section id="horarios" class="section section-alt">
-    <div class="container">
-      <div class="section-header fade-up">
-        <span class="section-label">Horarios 2026</span>
-        <h2 class="section-title">Encontrá tu turno</h2>
-        <p class="section-desc">Clases regulares de martes a jueves. Consultar disponibilidad sabatina.</p>
-      </div>
-      <div class="schedule-grid fade-up">
-
-        <div class="schedule-card">
-          <div class="schedule-day">Martes y Jueves</div>
-          <div class="schedule-slot">
-            <div>
-              <div class="slot-time">16:30 — 18:00</div>
-              <div class="slot-name">Grupo Mixto</div>
-            </div>
-            <span class="slot-tag tag-mixed">Mixto</span>
-          </div>
-          <div class="schedule-slot">
-            <div>
-              <div class="slot-time">18:00 — 19:30</div>
-              <div class="slot-name">Grupo Infantil</div>
-            </div>
-            <span class="slot-tag tag-kids">Niños</span>
-          </div>
-          <div class="schedule-slot">
-            <div>
-              <div class="slot-time">19:30 — 21:30</div>
-              <div class="slot-name">Adultos y Juveniles</div>
-            </div>
-            <span class="slot-tag tag-adults">Adultos</span>
-          </div>
-        </div>
-
-        <div class="schedule-card">
-          <div class="schedule-day">Sábados</div>
-          <div class="schedule-slot">
-            <div>
-              <div class="slot-time">10:00 — 12:00</div>
-              <div class="slot-name">Tela Intensivo</div>
-            </div>
-            <span class="slot-tag tag-mixed">Mixto</span>
-          </div>
-          <div class="schedule-slot">
-            <div>
-              <div class="slot-time">Consultar</div>
-              <div class="slot-name">Clases privadas</div>
-            </div>
-            <span class="slot-tag tag-adults">A pedido</span>
-          </div>
-        </div>
-
-        <div class="schedule-card" style="border: 2px dashed var(--teal); background: var(--teal-light);">
-          <div class="schedule-day" style="color: var(--teal-dark);">¿No encontrás horario?</div>
-          <p style="font-size:.9rem; color: var(--text); margin-bottom:16px; line-height:1.5">
-            Consultamos disponibilidad para armar un turno a tu medida o clase privada.
-          </p>
-          <a href="#inscripcion" class="btn-primary" style="display:inline-flex; padding:10px 20px; font-size:.875rem">
-            Consultar turno →
-          </a>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── PRECIOS — Sales System ─── -->
-  <section id="precios" class="section">
-    <div class="container">
-      <div class="section-header fade-up">
-        <span class="section-label">Planes y precios</span>
-        <h2 class="section-title">Invertí en algo que te cambia</h2>
-        <p class="section-desc">
-          Precios en pesos argentinos. Cupos limitados por grupo.
-        </p>
-      </div>
-      <div class="pricing-grid">
-
-        <div class="pricing-card fade-up">
-          <div class="plan-name">Prueba</div>
-          <div class="plan-price">Gratis <span>/ 1 clase</span></div>
-          <div class="plan-period">Sin compromiso ni tarjeta</div>
-          <ul class="plan-features">
-            <li>1 clase de prueba en cualquier disciplina</li>
-            <li>Equipamiento incluido</li>
-            <li>Asesoramiento personalizado</li>
-            <li>Sin obligación de inscripción</li>
-          </ul>
-          <a href="#inscripcion" class="btn-plan btn-plan-outline">Reservar clase de prueba</a>
-        </div>
-
-        <div class="pricing-card featured fade-up">
-          <div class="pricing-body">
-            <div class="plan-name">Mensual</div>
-            <div class="plan-price">$7.600 <span>/ mes</span></div>
-            <div class="plan-period">2 clases semanales · facturación mensual</div>
-            <ul class="plan-features">
-              <li>2 clases x semana (8 al mes)</li>
-              <li>Acceso a 1 disciplina a elección</li>
-              <li>Seguimiento de progreso</li>
-              <li>Grupos reducidos (máx. 8 personas)</li>
-              <li>WhatsApp de la profe para consultas</li>
-            </ul>
-            <a href="#inscripcion" class="btn-plan btn-plan-solid">Inscribirme ahora</a>
-          </div>
-        </div>
-
-        <div class="pricing-card fade-up">
-          <div class="plan-name">Intensivo</div>
-          <div class="plan-price">Consultar <span>/ mes</span></div>
-          <div class="plan-period">3+ clases semanales · multi-disciplina</div>
-          <ul class="plan-features">
-            <li>3 o más clases por semana</li>
-            <li>Acceso a múltiples disciplinas</li>
-            <li>Planificación de entrenamiento</li>
-            <li>Preparación para muestras y eventos</li>
-            <li>Clase privada mensual incluida</li>
-          </ul>
-          <a href="https://wa.me/5491100000000?text=Hola!%20Me%20interesa%20el%20plan%20intensivo%20de%20Evolución%20Aérea" target="_blank" class="btn-plan btn-plan-outline">Consultar por WhatsApp</a>
-        </div>
-
-      </div>
-
-      <!-- Guarantee strip -->
-      <div style="text-align:center; margin-top:48px; padding:28px; background: var(--teal-light); border-radius: var(--radius); border: 1px solid rgba(46,196,182,.3);" class="fade-up">
-        <p style="font-size:.95rem; color: var(--dark); font-weight:500">
-          🛡️ <strong>Garantía de satisfacción:</strong> Si probás tu primera clase y no quedás conforme, no te cobramos nada y te ayudamos a encontrar qué otra actividad puede servírte mejor.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── FAQ ─── -->
-  <section class="section section-alt">
-    <div class="container">
-      <div class="section-header fade-up">
-        <span class="section-label">Preguntas frecuentes</span>
-        <h2 class="section-title">Todo lo que querés saber</h2>
-      </div>
-      <div class="faq-list">
-
-        <div class="faq-item fade-up">
-          <button class="faq-question">
-            ¿Necesito experiencia previa para empezar?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              No. Nuestras clases están diseñadas para empezar desde cero. No necesitás saber nada de acrobacia ni tener una condición física particular. El método está pensado para desarrollar fuerza y técnica progresivamente desde la primera clase.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item fade-up">
-          <button class="faq-question">
-            ¿Qué ropa necesito llevar?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Ropa cómoda y ajustada (como leggins y musculosa). Para tela aérea es importante que los brazos y piernas estén cubiertos para evitar roces en los primeros meses. Nada más — el equipamiento lo proveemos nosotros.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item fade-up">
-          <button class="faq-question">
-            ¿Desde qué edad pueden hacer clases los niños?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Trabajamos con niños desde los 5 años. Los grupos infantiles están organizados por rango de edad para que la progresión y la dinámica sean apropiadas para cada etapa del desarrollo.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item fade-up">
-          <button class="faq-question">
-            ¿Hay clases privadas disponibles?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Sí. Ofrecemos clases privadas a horarios a convenir, tanto para personas que prefieren aprendizaje individual como para quienes quieren acelerar su progreso. Consultá disponibilidad y precio por WhatsApp.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item fade-up">
-          <button class="faq-question">
-            ¿Qué pasa si falto a una clase?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Entendemos que la vida no siempre acompaña. Podés recuperar hasta 2 clases por mes coordinando con la profe con anticipación, según disponibilidad en otros turnos.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item fade-up">
-          <button class="faq-question">
-            ¿Tienen muestras o presentaciones?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Sí! Organizamos muestras anuales y participamos en eventos de la comunidad aérea. Es algo optional — nadie está obligado a participar, pero la experiencia de mostrar lo que aprendiste es algo que muchos alumnos describen como transformador.
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── INSTAGRAM ─── -->
-  <div class="ig-strip">
-    <p class="ig-label">
-      Seguinos en Instagram
-      <a href="https://www.instagram.com/evolucionaerea/" target="_blank" rel="noopener">@evolucionaerea</a>
-      para ver el día a día de las clases
-    </p>
-    <div class="ig-grid">
-      <div class="ig-thumb">🎀</div>
-      <div class="ig-thumb">⭕</div>
-      <div class="ig-thumb">🤸</div>
-      <div class="ig-thumb">🎪</div>
-      <div class="ig-thumb">✨</div>
-      <div class="ig-thumb">🌟</div>
-    </div>
-    <a href="https://www.instagram.com/evolucionaerea/" target="_blank" rel="noopener" style="display:inline-block; padding:12px 28px; border:1px solid rgba(255,255,255,.2); border-radius:50px; color:rgba(255,255,255,.7); font-size:.875rem; transition: all .25s ease;" onmouseover="this.style.borderColor='#2EC4B6';this.style.color='#2EC4B6'" onmouseout="this.style.borderColor='rgba(255,255,255,.2)';this.style.color='rgba(255,255,255,.7)'">
-      Ver Instagram →
+<header class="hero" id="top">
+  <div class="hero__bg">
+    <img src="img/muestra-1.png" alt="Acrobacia aérea en tela" />
+  </div>
+  <div class="container hero__content">
+    <div class="eyebrow reveal">Mar del Plata · Argentina</div>
+    <h1 class="reveal delay-1">Clases de<br/>Acrobacia <em>Aérea</em></h1>
+    <p class="hero__sub reveal delay-2">Tela aérea <span>·</span> Aro <span>·</span> Acrobacia de piso</p>
+    <p class="hero__text reveal delay-3">Entrenás de una forma diferente y descubrís todo lo que tu cuerpo puede lograr. Tu cuerpo puede hacer más de lo que imaginás.</p>
+    <a href="#contacto" class="hero__cta reveal delay-4">
+      Quiero probar una clase
+      <svg width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true">
+        <path d="M1 7h15M11 1l5 6-5 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </a>
   </div>
+  <div class="container hero__meta">
+    <div class="hero__meta-row">
+      <div>Est. <em style="font-family:var(--serif);font-style:italic;color:var(--teal)">2019</em></div>
+      <div class="hero__scroll"><span>Descubrí más</span><span class="hero__scroll-line"></span></div>
+    </div>
+  </div>
+</header>
 
-  <!-- ─── CAPTURA / FORMULARIO — Sales Funnel ─── -->
-  <section id="inscripcion" class="capture-section">
-    <div class="container">
-      <div class="capture-inner">
-        <div class="capture-text">
-          <span class="section-label">Primer paso</span>
-          <h2 class="section-title">Reservá tu clase de prueba gratuita</h2>
-          <p class="section-desc">Sin tarjeta, sin compromiso. Solo vení a probar.</p>
-          <ul class="capture-perks">
-            <li>
-              <div class="perk-icon">✓</div>
-              <span>Clase de prueba 100% gratuita</span>
-            </li>
-            <li>
-              <div class="perk-icon">📲</div>
-              <span>Te contactamos en menos de 24 horas</span>
-            </li>
-            <li>
-              <div class="perk-icon">👥</div>
-              <span>Grupos reducidos — cupos limitados</span>
-            </li>
-            <li>
-              <div class="perk-icon">🛡️</div>
-              <span>Garantía de satisfacción total</span>
-            </li>
-          </ul>
+<section class="section what" id="disciplinas">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">Qué trabajamos</div>
+      <h2 class="section-title">Cuatro pilares,<br/>un mismo <em>movimiento</em>.</h2>
+      <p class="section-lede">Cada clase está diseñada para que cada estudiante avance a su propio ritmo, integrando las cuatro dimensiones que sostienen toda práctica aérea.</p>
+    </div>
+    <div class="what__grid">
+      <article class="pillar reveal">
+        <div class="pillar__num">01 — Pilar</div>
+        <svg class="pillar__icon" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 28 L28 14 L42 28 L28 42 Z"/><circle cx="28" cy="28" r="6"/>
+          <path d="M28 4 V14 M28 42 V52 M4 28 H14 M42 28 H52"/>
+        </svg>
+        <h3>Fuerza</h3>
+        <p>Desarrollamos potencia funcional desde el centro del cuerpo, con ejercicios progresivos que sostienen cada figura en el aire.</p>
+      </article>
+      <article class="pillar reveal delay-1">
+        <div class="pillar__num">02 — Pilar</div>
+        <svg class="pillar__icon" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 44 C 8 24, 24 12, 48 12"/><path d="M8 44 C 18 38, 28 32, 48 12"/>
+          <circle cx="48" cy="12" r="2.5" fill="currentColor"/><circle cx="8" cy="44" r="2.5" fill="currentColor"/>
+        </svg>
+        <h3>Flexibilidad</h3>
+        <p>Trabajo profundo de movilidad articular y elongación activa, construido con paciencia y técnica respiratoria.</p>
+      </article>
+      <article class="pillar reveal delay-2">
+        <div class="pillar__num">03 — Pilar</div>
+        <svg class="pillar__icon" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="28" cy="28" r="20"/><circle cx="28" cy="28" r="11"/>
+          <path d="M28 8 V20 M28 36 V48 M8 28 H20 M36 28 H48"/>
+        </svg>
+        <h3>Coordinación</h3>
+        <p>Secuencias que integran cuerpo, ritmo y respiración, para fluir entre figuras con seguridad y precisión.</p>
+      </article>
+      <article class="pillar reveal delay-3">
+        <div class="pillar__num">04 — Pilar</div>
+        <svg class="pillar__icon" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 28 C 10 18, 18 10, 28 10 C 38 10, 46 18, 46 28"/>
+          <path d="M14 28 C 14 36, 20 42, 28 42 C 36 42, 42 36, 42 28"/>
+          <circle cx="28" cy="28" r="3" fill="currentColor"/><path d="M28 31 V46"/>
+        </svg>
+        <h3>Conciencia<br/>corporal</h3>
+        <p>Aprender a habitar el cuerpo: leer sus señales, respetar sus tiempos y descubrir el potencial que ya está dentro.</p>
+      </article>
+    </div>
+    <div class="what__foot reveal">
+      <p>"Todo a través del movimiento en el aire, con entrenamiento progresivo."</p>
+      <a href="#horarios" class="btn btn--ghost" style="padding:14px 22px;font-size:13px">Ver horarios
+        <svg width="16" height="12" viewBox="0 0 18 14" fill="none"><path d="M1 7h15M11 1l5 6-5 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section why" id="academia">
+  <div class="container why__layout">
+    <div class="why__media reveal">
+      <img src="img/adulto-1.png" alt="Entrenamiento de flexibilidad" />
+      <div class="why__media-tag">Entrenamiento consciente</div>
+    </div>
+    <div class="reveal delay-1">
+      <div class="section-eyebrow">Por qué elegirnos</div>
+      <h2 class="section-title">Una academia<br/>donde la técnica<br/>se enseña con <em>cuidado</em>.</h2>
+      <p class="section-lede" style="margin-top:18px">No corremos. Cada figura, cada inversión, cada caída controlada se construye sobre una base sólida de seguridad y confianza.</p>
+      <div class="why__list">
+        <div class="why__item">
+          <div class="why__item-num">01</div>
+          <div><h4>Instructores certificados</h4><p>Formación continua y trayectoria escénica que se traslada a cada clase.</p></div>
         </div>
-
-        <div class="capture-form">
-          <div id="form-container">
-            <h3 class="form-title">¡Empezá hoy!</h3>
-            <p class="form-subtitle">Completá tus datos y te reservamos un lugar</p>
-
-            <form id="signup-form" novalidate>
-              <div class="form-group">
-                <label for="nombre">Nombre completo</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
-              </div>
-              <div class="form-group">
-                <label for="telefono">WhatsApp / Teléfono</label>
-                <input type="tel" id="telefono" name="telefono" placeholder="+54 9 11 0000-0000" required />
-              </div>
-              <div class="form-group">
-                <label for="disciplina">Disciplina que te interesa</label>
-                <select id="disciplina" name="disciplina" required>
-                  <option value="" disabled selected>Elegí una opción</option>
-                  <option value="tela">Tela Aérea</option>
-                  <option value="aro">Aro Aéreo (Lyra)</option>
-                  <option value="acrobacia">Acrobacia de Piso</option>
-                  <option value="infantil">Clases Infantiles</option>
-                  <option value="no-se">No sé todavía — quiero orientación</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="turno">Turno preferido</label>
-                <select id="turno" name="turno">
-                  <option value="" disabled selected>¿Cuándo podés?</option>
-                  <option value="tarde">Tarde (16:30 - 18:00)</option>
-                  <option value="infantil-tarde">Tarde infantil (18:00 - 19:30)</option>
-                  <option value="noche">Noche (19:30 - 21:30)</option>
-                  <option value="sabado">Sábados</option>
-                  <option value="flexible">Soy flexible</option>
-                </select>
-              </div>
-              <button type="submit" class="form-submit">
-                <span>Reservar clase gratuita</span>
-                <span>🚀</span>
-              </button>
-              <p class="form-privacy">Tu información es privada y nunca se comparte con terceros.</p>
-            </form>
-          </div>
-
-          <div id="success-msg" class="success-msg">
-            <div class="success-icon">🎉</div>
-            <h3>¡Reserva recibida!</h3>
-            <p>Te contactamos en las próximas 24 horas para confirmar tu lugar.<br />Mientras tanto, seguinos en <a href="https://www.instagram.com/evolucionaerea/" target="_blank" style="color:var(--teal)">@evolucionaerea</a></p>
-          </div>
+        <div class="why__item">
+          <div class="why__item-num">02</div>
+          <div><h4>Ambiente seguro y técnica adecuada</h4><p>Colchonetas, telas y aros revisados, progresiones claras y atención individual en cada grupo.</p></div>
+        </div>
+        <div class="why__item">
+          <div class="why__item-num">03</div>
+          <div><h4>Disciplina con conciencia</h4><p>Entrenamos con cuidado del cuerpo y respeto por los tiempos de cada estudiante.</p></div>
+        </div>
+        <div class="why__item">
+          <div class="why__item-num">04</div>
+          <div><h4>Comunidad cálida</h4><p>Un lugar donde se forman amistades y donde nadie entrena solo.</p></div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ─── FOOTER ─── -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <span class="nav-logo">Evolución <span>Aérea</span></span>
-          <p>Escuela de artes aéreas con instructores certificados por @asa.acrobatas. Técnica real, grupos reducidos, comunidad que te impulsa.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Disciplinas</h4>
-          <ul class="footer-links">
-            <li><a href="#servicios">Tela Aérea</a></li>
-            <li><a href="#servicios">Aro Aéreo</a></li>
-            <li><a href="#servicios">Acrobacia</a></li>
-            <li><a href="#servicios">Clases Infantiles</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Información</h4>
-          <ul class="footer-links">
-            <li><a href="#horarios">Horarios</a></li>
-            <li><a href="#precios">Precios</a></li>
-            <li><a href="https://www.instagram.com/evolucionaerea/" target="_blank">Instagram</a></li>
-            <li><a href="#inscripcion">Clase de prueba</a></li>
-          </ul>
-        </div>
+<section class="section schedule" id="horarios">
+  <div class="container">
+    <div class="schedule__head-row">
+      <div class="reveal" style="flex:1;min-width:280px">
+        <div class="section-eyebrow">Horarios</div>
+        <h2 class="section-title">Martes &amp; Jueves<br/>en <em>movimiento</em>.</h2>
       </div>
-      <div class="footer-bottom">
-        <span>© 2026 Evolución Aérea · Todos los derechos reservados</span>
-        <span>Hecho con ❤️ para volar más alto</span>
+      <div class="reveal delay-1">
+        <span class="schedule__day-pill"><span class="dot"></span>Martes · Jueves</span>
       </div>
     </div>
-  </footer>
+    <div class="schedule__grid">
+      <article class="slot reveal">
+        <div class="slot__index">Grupo 01</div>
+        <h3 class="slot__age">Mixto<small>Para todas las edades</small></h3>
+        <div class="slot__time"><strong>16:30 — 18:00</strong><span>hs</span></div>
+        <div class="slot__bar"></div>
+      </article>
+      <article class="slot reveal delay-1">
+        <div class="slot__index">Grupo 02</div>
+        <h3 class="slot__age">Infantil<small>Niñas y niños</small></h3>
+        <div class="slot__time"><strong>18:00 — 19:30</strong><span>hs</span></div>
+        <div class="slot__bar"></div>
+      </article>
+      <article class="slot reveal delay-2">
+        <div class="slot__index">Grupo 03</div>
+        <h3 class="slot__age">Adultos &amp; Juveniles<small>Desde 14 años</small></h3>
+        <div class="slot__time"><strong>19:30 — 21:30</strong><span>hs</span></div>
+        <div class="slot__bar"></div>
+      </article>
+    </div>
+  </div>
+</section>
 
-  <!-- ─── WHATSAPP FLOAT ─── -->
-  <a class="wa-float" href="https://wa.me/5491100000000?text=Hola!%20Me%20interesa%20saber%20m%C3%A1s%20sobre%20las%20clases%20de%20Evolución%20Aérea" target="_blank" rel="noopener" title="Contactar por WhatsApp">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
-  </a>
+<section class="section gallery" id="galeria">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">Galería</div>
+      <h2 class="section-title">Lo que pasa <em>en escena</em>.</h2>
+      <p class="section-lede">Momentos de muestra, ensayo y clase. Cada imagen guarda una historia de constancia y entrega.</p>
+    </div>
+    <div class="gallery__grid">
+      <div class="gallery__cell reveal">
+        <img src="img/muestra-1.png" alt="Tela aérea en escena" />
+        <span class="gallery__cell-label">Tela aérea — muestra anual</span>
+      </div>
+      <div class="gallery__cell reveal delay-1">
+        <img src="img/muestra-3.png" alt="Tela aérea en pareja" />
+        <span class="gallery__cell-label">Trabajo en pareja</span>
+      </div>
+      <div class="gallery__cell reveal delay-2">
+        <img src="img/muestra-2.png" alt="Aro aéreo" />
+        <span class="gallery__cell-label">Aro aéreo</span>
+      </div>
+      <div class="gallery__cell reveal delay-3">
+        <img src="img/kids-2.png" alt="Coreografía grupo infantil" />
+        <span class="gallery__cell-label">Coreografía infantil</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <!-- ─── SCRIPTS ─── -->
-  <script>
-    // FAQ accordion
-    document.querySelectorAll('.faq-question').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const item = btn.closest('.faq-item');
-        const isOpen = item.classList.contains('open');
-        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-        if (!isOpen) item.classList.add('open');
-      });
-    });
+<section class="community" id="comunidad">
+  <div class="community__bg">
+    <img src="img/kids-grupal.png" alt="Comunidad Evolución Aérea" />
+  </div>
+  <div class="container community__content reveal">
+    <div class="section-eyebrow" style="color:var(--teal)">Comunidad</div>
+    <h2 class="community__title">Crecemos <em>juntas</em>,<br/>una clase a la vez.</h2>
+    <p class="community__text">Un espacio donde se comparte, se generan amistades y nos impulsamos a crecer juntas. Acá nadie entrena en silencio: cada logro se celebra y cada caída se acompaña.</p>
+    <div class="community__stats">
+      <div><div class="stat__num">+120</div><div class="stat__label">Estudiantes activas</div></div>
+      <div><div class="stat__num">3</div><div class="stat__label">Disciplinas aéreas</div></div>
+      <div><div class="stat__num">6</div><div class="stat__label">Años formando</div></div>
+    </div>
+  </div>
+</section>
 
-    // Scroll animations
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
+<section class="cta-final" id="contacto">
+  <div class="cta-final__ornament" aria-hidden="true"></div>
+  <div class="container cta-final__inner reveal">
+    <div class="section-eyebrow section-head--center" style="margin:0 auto 22px">Probar una clase</div>
+    <h2>Vení a <em>conocernos</em>.</h2>
+    <p>Te invitamos a probar una clase. Traé ropa cómoda, ganas de moverte y mente abierta — del resto nos ocupamos nosotras.</p>
+    <div class="cta-final__buttons">
+      <a class="btn btn--primary" href="https://wa.me/541169964085" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 14.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.5-.5.2-.2.2-.3.3-.5.1-.2.1-.4 0-.5-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.7 1.2 2.9.2.2 2 3.1 5 4.4.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 2-1.4.2-.7.2-1.2.1-1.4-.1-.1-.3-.2-.6-.4zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 4.9L2 22l5.3-1.4C8.6 21.5 10.3 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.4c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3.1-.2-.3C3.9 15 3.5 13.5 3.5 12 3.5 7.3 7.3 3.5 12 3.5S20.5 7.3 20.5 12 16.7 20.4 12 20.4z"/></svg>
+        Escribinos por WhatsApp
+      </a>
+      <a class="btn btn--ghost" href="https://www.instagram.com/evolucionaerea/" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+        </svg>
+        Seguinos en Instagram
+      </a>
+    </div>
+  </div>
+</section>
 
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div>
+        <div class="footer__brand">Evolución Aérea<span class="footer__brand-tag">Academia de Artes Aéreas</span></div>
+        <p class="footer__brand-text">Acrobacia aérea, tela y aro en Mar del Plata. Una práctica para descubrir todo lo que tu cuerpo puede lograr.</p>
+      </div>
+      <div class="footer__col">
+        <h5>Visitanos</h5>
+        <p>Mar del Plata, Argentina</p>
+        <p style="margin-top:14px;color:rgba(250,248,243,.45);font-size:12px;letter-spacing:0.1em">Martes &amp; Jueves · 16:30 — 21:30</p>
+      </div>
+      <div class="footer__col">
+        <h5>Contacto</h5>
+        <a href="https://www.instagram.com/evolucionaerea/" target="_blank" rel="noopener">Instagram — @evolucionaerea</a>
+        <a href="https://wa.me/541169964085" target="_blank" rel="noopener">WhatsApp — +54 11 6996-4085</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; <span id="year">2026</span> Evolución Aérea — Todos los derechos reservados.</span>
+      <span>Hecho con cuidado en Mar del Plata.</span>
+    </div>
+  </div>
+</footer>
 
-    // Form submission — WA redirect + success state
-    document.getElementById('signup-form').addEventListener('submit', e => {
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' })
+  .observe && document.querySelectorAll('.reveal').forEach(el => {
+    new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }).observe(el);
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if (id.length < 2) return;
+      const target = document.querySelector(id);
+      if (!target) return;
       e.preventDefault();
-
-      const nombre     = document.getElementById('nombre').value.trim();
-      const telefono   = document.getElementById('telefono').value.trim();
-      const disciplina = document.getElementById('disciplina').value;
-      const turno      = document.getElementById('turno').value;
-
-      if (!nombre || !telefono || !disciplina) {
-        alert('Por favor completá nombre, teléfono y disciplina.');
-        return;
-      }
-
-      // Build WhatsApp message
-      const disciplinaMap = {
-        tela: 'Tela Aérea', aro: 'Aro Aéreo', acrobacia: 'Acrobacia de Piso',
-        infantil: 'Clases Infantiles', 'no-se': 'No sé todavía'
-      };
-      const turnoMap = {
-        tarde: '16:30-18:00', 'infantil-tarde': '18:00-19:30',
-        noche: '19:30-21:30', sabado: 'Sábados', flexible: 'Flexible'
-      };
-
-      const msg = `Hola! Me quiero inscribir a una clase de prueba gratuita 🙌
-
-Nombre: ${nombre}
-Disciplina: ${disciplinaMap[disciplina] || disciplina}
-Turno preferido: ${turnoMap[turno] || 'A confirmar'}
-Teléfono: ${telefono}
-
-¡Gracias!`;
-
-      // Show success
-      document.getElementById('form-container').style.display = 'none';
-      document.getElementById('success-msg').classList.add('visible');
-
-      // Open WA after short delay
-      setTimeout(() => {
-        window.open(
-          `https://wa.me/5491100000000?text=${encodeURIComponent(msg)}`,
-          '_blank'
-        );
-      }, 800);
+      window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 60, behavior: 'smooth' });
     });
-  </script>
-
+  });
+</script>
 </body>
 </html>
